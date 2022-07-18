@@ -1,0 +1,51 @@
+{
+  "name": "Stok Barang BKPSDM Tabalong",
+  "short_name": "Stok Barang BKPSDM",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbcf9c",
+  "theme_color": "#fbcf9c",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/pwa/icon-72x72.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "/images/pwa/icon-96x96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/images/pwa/icon-128x128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "/images/pwa/icon-144x144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/images/pwa/icon-152x152.png",
+      "type": "image/png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "/images/pwa/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/pwa/icon-384x384.png",
+      "type": "image/png",
+      "sizes": "384x384"
+    },
+    {
+      "src": "/images/pwa/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
