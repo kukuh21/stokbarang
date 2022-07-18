@@ -10,10 +10,12 @@
     <div class="col-md-12">
       <h4 class="alert bg-danger text-center">Transaksi Barang Keluar</h4>
     </div>
+
     <div class="col-xs-12">
       <div class="box box-default color-palette-box">
         <div class="box-header with-border">
           <a data-toggle="modal" onclick="addform()" class="btn btn-success"><i class="fa fa-plus-circle"></i> Tambah</a>
+          <a data-toggle="modal" onclick="cetak()" class="btn btn-info"><i class="fa fa-print"></i> Cetak Pertanggal</a>
         </div>
         <div class="box-body">
           <div class="table-responsive">
@@ -39,6 +41,7 @@
 
     <!-- Modal Dialogs -->
     @include('admin.transaksi.modal.modal_user')
+    @include('admin.transaksi.modal.modal_cetak')
 
   </div>
 <!-- /.row -->
@@ -53,6 +56,10 @@
   <script>
     function addform() {
       $('#modal-user').modal('show');
+    }
+
+    function cetak() {
+      $('#modal-cetak').modal('show');
     }
 
     $(function() {
@@ -126,5 +133,25 @@
       });
     }
 
+    // checked all print
+    function checkAll(ele) {
+      var checkboxes = document.getElementsByTagName('input');
+      if (ele.checked) {
+          for (var i = 0; i < checkboxes.length; i++) {
+              if (checkboxes[i].type == 'checkbox' ) {
+                  checkboxes[i].checked = true;
+                  // document.getElementById("cetakdata").disabled = false;
+              }
+          }
+
+      } else {
+          for (var i = 0; i < checkboxes.length; i++) {
+              if (checkboxes[i].type == 'checkbox') {
+                  checkboxes[i].checked = false;
+                  // document.getElementById("cetakdata").disabled = true;
+              }
+          }
+      }
+  }
   </script>
 @endsection

@@ -40,6 +40,13 @@ class OrderController extends Controller
         }
 
         return Datatables::of($model)
+            ->addColumn('ceklist', function ($data) {
+                return '
+                    <div class="custom-checkbox custom-control">
+                        <input type="checkbox" name="chkbox[]" value="'.$data->order_id.'">
+                    </div>
+                ';
+            })
             ->addColumn('tanggal', function ($data) {
                 return '
                     <div align="center">
@@ -285,16 +292,6 @@ class OrderController extends Controller
 
         return view('admin.transaksi.transaksi_printpertanggal', [
             "data" => $data
-        ]);
-    }
-
-    public function orderprintperdata(Request $request)
-    {
-        $dataorder = $request->chkbox;
-
-        return view('admin.transaksi.transaksi_printperdata', [
-            "data" => $dataorder,
-            "request" => $request
         ]);
     }
 }
