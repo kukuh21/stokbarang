@@ -50,6 +50,9 @@ class OrderController extends Controller
             ->addColumn('action', function ($data) {
                 return '
                 <div align="center">
+                <a target="_blank" href="'.route('order.orderprint',$data->order_id).'" class="btn btn-info btn-shadow btn-sm">
+                    <i class="fa fa-print"></i>
+                </a>
                 <a href="'.route('order.orderdetail',$data->order_id).'" class="btn btn-warning btn-shadow btn-sm">
                     <i class="fa fa-cart-plus"></i>
                 </a>
@@ -236,5 +239,62 @@ class OrderController extends Controller
         }
 
         return response()->json(['code'=>200, 'status' => 'Data Berhasil Disimpan'], 200);
+    }
+
+    public function orderprint($id)
+    {
+        $data = Order::JoinUser()->JoinBidang()->where('order_id',$id)->get();
+
+        $orderdetail = OrderDetail::leftJoin('tb_barang', 'tb_orderdetail.barang_id', '=', 'tb_barang.barang_id')
+        ->leftJoin('tb_satuan', 'tb_barang.satuan_id', '=', 'tb_satuan.satuan_id')
+        ->where('order_id', '=', $id)
+        ->get();
+
+        foreach ($data as $data_item){
+            $orderid = $data_item->order_id;
+            $invoice = $data_item->invoice;
+            $total = $data_item->total;
+            $no_urut = $data_item->no_urut;
+            $tanggal = tanggal_indonesia($data_item->tanggal);
+            $nama_user = $data_item->nama;
+            $nohp_user = $data_item->nohp;
+            $tipe_user = $data_item->tipe;
+            $bidangnama = $data_item->bidang_nama;
+        }
+
+        return view('admin.transaksi.transaksi_print', [
+            'orderid' => $orderid,
+            'invoice' => $invoice,
+            'total' => $total,
+            'no_urut' => $no_urut,
+            'tanggal' => $tanggal,
+            'nama_user' => $nama_user,
+            'nohp_user' => $nohp_user,
+            'tipe_user' => $tipe_user,
+            'bidangnama' => $bidangnama,
+            'orderdetail' => $orderdetail
+        ]);
+    }
+
+    public function orderprintpertanggal(Request $request)
+    {
+        $start_date = date('Y-m-d', strtotime($request->tgl_dari));
+        $end_date = date('Y-m-d', strtotime($request->tgl_sampai));
+
+        $data = Order::JoinUser()->JoinBidang()->whereBetween('tanggal', [$start_date,$end_date])->get();
+
+        return view('admin.transaksi.transaksi_printpertanggal', [
+            "data" => $data
+        ]);
+    }
+
+    public function orderprintperdata(Request $request)
+    {
+        $dataorder = $request->chkbox;
+
+        return view('admin.transaksi.transaksi_printperdata', [
+            "data" => $dataorder,
+            "request" => $request
+        ]);
     }
 }

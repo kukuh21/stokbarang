@@ -54,6 +54,12 @@ Route::group(['middleware' => ['web' , 'role:Admin|User']], function () {
 
     Route::get('/order/create/{id}','OrderController@create')->name('order.create');
     Route::get('/order/data','OrderController@data')->name('order.data');
+
+    // print order
+    Route::get('/order/orderprint/{id}','OrderController@orderprint')->name('order.orderprint');
+    Route::post('/order/orderprintpertanggal','OrderController@orderprintpertanggal')->name('order.orderprintpertanggal');
+    Route::post('/order/orderprintperdata','OrderController@orderprintperdata')->name('order.orderprintperdata');
+
     Route::resource('order','OrderController');
   });
 });
